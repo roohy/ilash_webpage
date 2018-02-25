@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>iLASH</title>
+    <script
+            src="https://code.jquery.com/jquery-3.1.1.min.js"
+            integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+            crossorigin="anonymous"></script>
+    <script src="semantic/semantic.js"></script>
+
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/mathjs/3.16.1/math.min.js"></script>
+
+    <!-- load http://maurizzzio.github.io/function-plot/ -->
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+    <script src="https://wzrd.in/standalone/function-plot@1.14.0"></script>
+    <script src="main.js" type="application/javascript"></script>
+
+    <link rel="stylesheet" type="text/css" href="semantic/semantic.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+    <!--<div id="plot"></div>-->
+
+
+    <div class="ui large top fixed hidden menu">
+        <div class="ui container">
+            <a class="active item">Home</a>
+            <a class="item">Publications</a>
+            <a class="item">Documentation</a>
+            <a class="item">Downloads</a>
+            <!--<div class="right menu">
+                <div class="item">
+                    <a class="ui button">Log in</a>
+                </div>
+                <div class="item">
+                    <a class="ui primary button">Sign Up</a>
+                </div>
+            </div>-->
+        </div>
+    </div>
+
+    <!-- Sidebar Menu -->
+    <div class="ui vertical inverted sidebar menu">
+        <a class="active item">Home</a>
+        <a class="item" href="./publication.html">Publications</a>
+        <a class="item" href="./documentation.html">Documentation</a>
+        <a class="item" href="downloads.html">Downloads</a>
+
+    </div>
+
+
+    <!-- Page Contents -->
+    <div class="pusher">
+        <div class="ui inverted vertical masthead center aligned segment" id="banner">
+
+            <div class="ui container">
+                <div class="ui large secondary inverted pointing menu">
+                    <a class="toc item">
+                        <i class="sidebar icon"></i>
+                    </a>
+                    <a class="active item">Home</a>
+                    <a class="item" href="./publication.html">Publications</a>
+                    <a class="item" href="./documentation.html">Documentation</a>
+                    <a class="item" href="./downloads.html">Downloads</a>
+                    <!--<div class="right item">
+                        <a class="ui inverted button">Log in</a>
+                        <a class="ui inverted button">Sign Up</a>
+                    </div>-->
+                </div>
+            </div>
+
+            <div class="ui text container">
+                <h1 class="ui inverted header">
+                    iLash
+                </h1>
+                <h2>Ultra Rapid Detector of IBD segments</h2>
+                <div class="ui huge primary button">Downloads <i class="right arrow icon"></i></div>
+            </div>
+
+        </div>
+
+        <div class="ui vertical stripe segment">
+            <div class="ui middle aligned stackable grid container">
+                <div class="row">
+                    <div class="eight wide column">
+                        <h3 class="ui header">iLASH Performance</h3>
+                        <p>A customized implementation of LSH algorithm, together with some software optimization best-practices, have made
+                        iLash a order of magnitude faster than its closest competitor, GERMLINE.
+                        We tested both iLASH and GERMLINE on simulated data based on PAGE consortium IBD distribution with
+                        different individual counts. As seen in the figure, iLASH shows a near-linear order of runtime based on the size of
+                        the dataset, while GERMLINE grows rapidly. </p>
+                        <h3 class="ui header">Power</h3>
+                        <p>While faster, iLASH also manage to find more results than GERMLINE. It also shows a really high concordance with GERMLINE results.
+                        At the same time, we have shown that iLASH finds near 0% false negatives. As seen in the second figure, iLASH was able to
+                        find more result that GERMLINE based on a simulated ground truth in different datasets.</p>
+                        <h3 class="ui header">Customizability</h3>
+                        <p>Almost every aspect of the iLASH can be manipulated simply through its configuration file.
+                        Please refer to documentation section to learn more about iLASH configuration.</p>
+
+                    </div>
+                    <div class="six wide right floated column">
+                        <img src="pic/runtimes_page.png" class="ui large bordered rounded image">
+                        <img src="pic/total_concordance.png" class="ui large bordered rounded image">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="center aligned column">
+                        <a class="ui huge button">Check up on Github</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!--<div class="ui vertical stripe quote segment">
+            <div class="ui equal width stackable internally celled grid">
+                <div class="center aligned row">
+                    <div class="column">
+                        <h3>"What a Company"</h3>
+                        <p>That is what they all say about us</p>
+                    </div>
+                    <div class="column">
+                        <h3>"I shouldn't have gone with their competitor."</h3>
+                        <p>
+                            <img src="assets/images/avatar/nan.jpg" class="ui avatar image"> <b>Nan</b> Chief Fun Officer Acme Toys
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="ui vertical stripe segment">
+            <div class="ui text container">
+                <h3 class="ui header">Breaking The Grid, Grabs Your Attention</h3>
+                <p>Instead of focusing on content creation and hard work, we have learned how to master the art of doing nothing by providing massive amounts of whitespace and generic content that can seem massive, monolithic and worth your attention.</p>
+                <a class="ui large button">Read More</a>
+                <h4 class="ui horizontal header divider">
+                    <a href="#">Case Studies</a>
+                </h4>
+                <h3 class="ui header">Did We Tell You About Our Bananas?</h3>
+                <p>Yes I know you probably disregarded the earlier boasts as non-sequitur filler content, but its really true. It took years of gene splicing and combinatory DNA research, but our bananas can really dance.</p>
+                <a class="ui large button">I'm Still Quite Interested</a>
+            </div>
+        </div>-->
+
+
+        <div class="ui inverted vertical footer segment">
+            <div class="ui container">
+                <div class="ui stackable inverted divided equal height stackable grid">
+                    <div class="three wide column">
+                        <h4 class="ui inverted header">About</h4>
+                        <div class="ui inverted link list">
+                            <a href="http://isi.edu" class="item">ISI</a>
+                            <a href="#" class="item">Contact Us</a>
+
+                        </div>
+                    </div>
+                    <div class="three wide column">
+                        <h4 class="ui inverted header">People</h4>
+                        <div class="ui inverted link list">
+                            <a href="https://www.isi.edu/~ambite/" class="item">Jose-Luis Ambite</a>
+                            <a href="https://profiles.ucdenver.edu/display/13713377" class="item">Chris Gignoux</a>
+                            <a href="http://research.mssm.edu/kennylab/people.html" class="item">Eimear Kenny</a>
+                            <a href="http://research.mssm.edu/kennylab/people.html" class="item">Gilian Belbin </a>
+                            <a href="tthp://roohy.me" class="item">Ruhollah Shemirani</a>
+
+                        </div>
+                    </div>
+                    <div class="seven wide column">
+                        <h4 class="ui inverted header">Created at ISI</h4>
+                        <p>This page, I-Lash and testing tools are maintained by Ruhollah Shemirani @ isi</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

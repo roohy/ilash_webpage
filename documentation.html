@@ -1,0 +1,276 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Standard Meta -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+    <!-- Site Properties -->
+    <title>iLASH Documentation</title>
+
+    <script
+            src="https://code.jquery.com/jquery-3.1.1.min.js"
+            integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+            crossorigin="anonymous"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-csv/0.71/jquery.csv-0.71.min.js"></script>
+    <script src="semantic/semantic.js"></script>
+
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/mathjs/3.16.1/math.min.js"></script>
+
+    <!-- load http://maurizzzio.github.io/function-plot/ -->
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+    <script src="https://wzrd.in/standalone/function-plot@1.14.0"></script>
+    <script src="d3.v3.js" type="application/javascript"></script>
+    <script src="docs.js" type="application/javascript"></script>
+
+    <link rel="stylesheet" type="text/css" href="semantic/semantic.css">
+
+
+    <style type="text/css">
+        body {
+            background-color: #FFFFFF;
+        }
+        .ui.menu .item img.logo {
+            margin-right: 1.5em;
+        }
+        .main.container {
+            margin-top: 7em;
+        }
+        .wireframe {
+            margin-top: 2em;
+        }
+        .ui.footer.segment {
+            margin: 5em 0em 0em;
+            padding: 5em 0em;
+        }
+        #file-in-div{
+            margin-bottom: 2em;
+        }
+        input[type='text']{
+            width: 4em;
+        }
+        #no-file-error{
+            display: none;
+        }
+
+
+        .tick text{
+            font-size: 12px;
+        }
+
+        .tick line{
+            opacity: 0.2;
+        }
+    </style>
+
+</head>
+<body>
+
+<div class="ui fixed inverted menu">
+    <div class="ui container">
+        <a href="./" class="header item">
+            <!--<img class="logo" src="assets/images/logo.png">-->
+            iLASH
+        </a>
+        <a href="./" class="item">Home</a>
+        <a href="./downloads.html" class="item">Downloads</a>
+        <!--<div class="ui simple dropdown item">
+            Dropdown <i class="dropdown icon"></i>
+            <div class="menu">
+                <a class="item" href="#">Link Item</a>
+                <a class="item" href="#">Link Item</a>
+                <div class="divider"></div>
+                <div class="header">Header Item</div>
+                <div class="item">
+                    <i class="dropdown icon"></i>
+                    Sub Menu
+                    <div class="menu">
+                        <a class="item" href="#">Link Item</a>
+                        <a class="item" href="#">Link Item</a>
+                    </div>
+                </div>
+                <a class="item" href="#">Link Item</a>
+            </div>
+        </div>-->
+    </div>
+</div>
+
+<div class="ui main text container" id="main-container">
+    <h1 class="ui header">iLASH Documentation</h1>
+    <h2>Input/Output</h2>
+    <p>The first step in configuration of iLASH is setting input and output file addresses. For now, iLASH requires its inputs to follow PED/MAP file format. options 'map' and 'ped' in the configuration file
+    let the user pass the addresses to these files. Option 'output' does the same for output address. </p>
+    <h2>Tokenization</h2>
+    <p>For the next step, iLASH requires configurations for tokenization and slicing steps. These are both done in terms of SNP count. 'shingle_size' option lets the user decide the length of
+    each shingle (token, k-mer) in terms of number of SNPs. 'slice_size' on the other hand, let's the user decide about length a whole slice. 'shingle_overlap' and 'step_size' options
+    could be used to make overlaping shingles and slices, respectively.</p>
+    <p>In static slicing situations, because all these measurements are done based on the number of SNPs, iLASH is dependent on the density of map files given to it. For example, if you want to find tracts with minimum length of
+    3 cM and want to find the most possible, you have to know how many SNPs make 3cm in your array. We have a tool here to help you with that.
+    You can add your map files using the form below to get a sense of its density before using iLASH. After adding your file,
+    you can choose the minimum length of IBD tracts your are looking for. We give you an estimation for the number of SNPs that
+    represent the length along the array data like a moving average. You can also choose this moving average steps from 50 SNPs to 300 SNPs using the check boxes.
+    Based on array density, iLASH needs a slice size (in SNPs) to slice up the input data. As slice sizes get smaller, precision goes higher; at the same time, performance gets
+    worse. So there should be a balance based on input data as how long each slice should be, depending the minimum length of tracts we are looking for.</p>
+    <div class="ui  grid">
+        <div class="row">
+            <div class="ten wide column">
+                <div class="ui labeled input" id="file-in-div">
+                    <div class="ui label">
+                        Files
+                    </div>
+                    <input type="file"  id="map-inputs">
+                </div>
+            </div>
+            <div class="six wide column">
+                <div class="ui labeled input short">
+                    <div class="ui label">
+                        Min Length (cM)
+                    </div>
+                    <input type="number" name="quantity" min="1" max="5" placeholder="3" id="min-len" value="3">
+                </div>
+            </div>
+        </div>
+        <div class="row" id="snp-checkboxes">
+            <div class="four wide column" >
+                <input type="checkbox" id="fifty" name="fifty" value="50">
+                <label for="fifty" class="ui green label">50 SNPs Steps</label>
+            </div>
+            <div class="four wide column">
+                <div class="five wide column">
+                    <input type="checkbox" id="hundred" name="hundred" value="100" >
+                    <label for="hundred" class="ui red label">100 SNPs Steps</label>
+                </div>
+            </div>
+            <div class="four wide column">
+                <div class="five wide column">
+                    <input type="checkbox" id="twohundred" name="twohundred" value="200">
+                    <label for="twohundred" class="ui blue label">200 SNPs Steps</label>
+                </div>
+            </div>
+            <div>
+                <div class="four wide column">
+                    <input type="checkbox" id="threehundred" name="threehundred" value="300">
+                    <label for="threehundred" class="ui grey label">300 SNPs Steps</label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="ui negative tiny message sixteen wide column" id="no-file-error">
+                <i class="close icon"></i>
+                <div class="header">
+                    Cannot Draw!!
+                </div>
+                <p>Try Loading a valid Map file first.
+                </p></div>
+        </div>
+
+    </div>
+
+
+    <h3>Auto Slicing/Static Slicing</h3>
+    <p>To make life easier, iLASH has the ability to automatically figure out slice sizes based on the minimum length that the user is looking for. One could simply
+    set 'auto_slice' option value to 1, and the have iLASH create dynamically sized segments that all have the same length in cM. 'min_length'
+    , in both static and automatic running modes, decides whether a tract is long enough to be written to the output file or not. In 'auto_slice' mode, this option
+    is also used to slice up the data. It is thus a good practice to set the minimum length a little lower that desired to get the most of iLASH.</p>
+    <div class="ui divider"></div>
+    <h2>LSH Configurations</h2>
+    <p class="ui justified">After deciding about a slice length based on array density, we have to configure LSH parameters. Our algorithm uses locality sensitive hashing (LSH) as one of its main methods.
+    In locality sensitive hashing, we hash each slice in a manner that the hash value of that slice is closer to its similar slices that it is to non-similar. Each slice, gets hashed
+    into a n-dimensional space where each element on its vector representation will be exactly the same as another slice with the probability r. Where r is Jaccard similarity of
+    the two slices. Then we compress that n-dimensional hash to an even smaller hash with b dimension. b should divide n.
+    After the second level of hashing, the probability that two slices s1 and s2 with jacc(s1,s2) = r have the exact same value in at least one dimension can be shown as an S-curve that is a
+    function of r; the Jaccard similarity.  </p>
+    <p>Also, based on the number dimensions at which hash values of two slices are the same, we can use MLE to see
+    how much we can expect the two slices to have in common in terms of shingles(k-mers). When configuring iLASH, we can use this information to command the tool
+    which slices are to be taken as matches or be treated as likely similar parts waiting for further analysis.</p>
+    <div class="ui grid">
+        <div class="row lsh-inputs">
+            <div class="ui labeled input four seven wide column">
+                <div class="ui  yellow label">
+                    N (Permutation):
+                </div>
+                <input type="number" value="20" id="perm-count" max="500" min="1">
+            </div>
+            <div class="ui labeled input four seven wide column">
+                <div class="ui red label">
+                    B (Bucket):
+                </div>
+                <input type="number" value="4" id="bucket-count" max="100" min="1">
+            </div>
+        </div>
+    </div>
+
+    <div class="ui divider"></div>
+    <h3>Probability of Getting a Match in LSH Based on Jaccard Similarity</h3>
+    <div id="plot"></div>
+
+    <div class="ui divider"></div>
+    <h3>Minimum Expected Similarity Based on LSH Findings</h3>
+    <div class="ui">
+        <table class="ui purple table" id="lsh-info-table">
+            <thead>
+            <tr><th>Shared Hash Buckets</th>
+                <th>Minimum Expected Similarity</th>
+
+            </tr></thead>
+            <tbody></tbody>
+        </table>
+    </div>
+    <div class="divider"></div>
+    <p>In the configuration file, 'perm_count' sets the number of permutations for each slice while minhashing, while 'bucket_count' option sets the number of
+    minhash results that go in one LSH bucket. Needless to say, it should divide the value for 'perm_count'. In order to the results of MLE part, options 'interest_threshold' tells iLASH
+    what expected similarity value should cause the program to go through that slice in detail in order to find shorter IBD segments. 'match_threshold' on the other hand, tells
+    iLASH what values of expected similarity should make the program to believe two slices are exact match with not need to go through them. (This option is useful for overcome phasing errors.)
+    </p>
+</div>
+<div class=""></div>
+<!--<div class="ui inverted vertical footer segment">
+    <div class="ui center aligned container">
+        <div class="ui stackable inverted divided grid">
+            <div class="three wide column">
+                <h4 class="ui inverted header">Group 1</h4>
+                <div class="ui inverted link list">
+                    <a href="#" class="item">Link One</a>
+                    <a href="#" class="item">Link Two</a>
+                    <a href="#" class="item">Link Three</a>
+                    <a href="#" class="item">Link Four</a>
+                </div>
+            </div>
+            <div class="three wide column">
+                <h4 class="ui inverted header">Group 2</h4>
+                <div class="ui inverted link list">
+                    <a href="#" class="item">Link One</a>
+                    <a href="#" class="item">Link Two</a>
+                    <a href="#" class="item">Link Three</a>
+                    <a href="#" class="item">Link Four</a>
+                </div>
+            </div>
+            <div class="three wide column">
+                <h4 class="ui inverted header">Group 3</h4>
+                <div class="ui inverted link list">
+                    <a href="#" class="item">Link One</a>
+                    <a href="#" class="item">Link Two</a>
+                    <a href="#" class="item">Link Three</a>
+                    <a href="#" class="item">Link Four</a>
+                </div>
+            </div>
+            <div class="seven wide column">
+                <h4 class="ui inverted header">Footer Header</h4>
+                <p>Extra space for a call to action inside the footer that could help re-engage users.</p>
+            </div>
+        </div>
+        <div class="ui inverted section divider"></div>
+        <img src="assets/images/logo.png" class="ui centered mini image">
+        <div class="ui horizontal inverted small divided link list">
+            <a class="item" href="#">Site Map</a>
+            <a class="item" href="#">Contact Us</a>
+            <a class="item" href="#">Terms and Conditions</a>
+            <a class="item" href="#">Privacy Policy</a>
+        </div>
+    </div>
+</div>-->
+</body>
+
+</html>
